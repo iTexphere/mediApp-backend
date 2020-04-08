@@ -45,9 +45,9 @@ Route::group(['as'=>'v1.patient', 'prefix'=>'v1/patient', 'namespace'=>'Api\Pati
 /**
 *  Patient Authenticated Route -
 */
-// Route::group(['as' => 'v1.patient', 'prefix' => 'v1.patient', 'namespace' => 'Api\Patient', 'middleware'=> ['auth:api', 'scope:patient']], function(){
+Route::group(['as' => 'v1.patient', 'prefix' => 'v1/patient', 'namespace' => 'Api\Patient', 'middleware'=> ['auth:api', 'scope:patient']], function(){
 
+	Route::get('/search/{keyword}/medical/', 'MedicalController@search')->name('.search.medical');
 
-
-// });
+});
 
