@@ -6,6 +6,8 @@ use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Passport\HasApiTokens;
+use App\Medical;
+use App\Patient;
 
 class User extends Authenticatable
 {
@@ -17,7 +19,7 @@ class User extends Authenticatable
      * @var array
      */
     protected $fillable = [
-        'fast_name', 'last_name', 'user_name', 'nic', 'email', 'mobile_munber', 'city', 'district', 'password'
+        'user_name', 'password', 'role'
     ];
 
     /**
@@ -37,4 +39,11 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+    public function medical(){
+        return $this->hasOne(Medical::class);
+    }
+    public function patient(){
+        return $this->hasOne(Patient::class);
+    }
 }

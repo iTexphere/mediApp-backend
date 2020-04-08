@@ -12,12 +12,12 @@ class UserController extends Controller
     public function signup(Request $request){
     	//Validate Request
     	$this->validate($request, [
-    		'fast_name'	=> 'required',
+    		'first_name'=> 'required',
     		'last_name'	=> 'required',
     		'user_name'	=> 'required|unique:users,user_name',
     		'nic'		=> 'required',
     		'email'		=> 'required|email|unique:users,email',
-    		'mobile_munber'	=> 'required|numeric|unique:users,mobile_munber',
+    		'mobile_number'	=> 'required|numeric|unique:users,mobile_munber',
     		'city'		=> 'required',
     		'district'	=> 'required',
     		'password'	=> 'required',
@@ -25,12 +25,12 @@ class UserController extends Controller
 
     	//Create New User
     	$newUser = User::create([
-    		'fast_name'	=> $request->fast_name,
+    		'first_name'=> $request->fast_name,
     		'last_name'	=> $request->last_name,
     		'user_name'	=> $request->user_name,
     		'nic'		=> $request->nic,
     		'email'		=> $request->email,
-    		'mobile_munber'	=> $request->mobile_munber,
+    		'mobile_number'	=> $request->mobile_munber,
     		'city'		=> $request->city,
     		'district'	=> $request->district,
     		'password'	=>  bcrypt($request->password),

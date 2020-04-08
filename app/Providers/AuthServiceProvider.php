@@ -27,5 +27,12 @@ class AuthServiceProvider extends ServiceProvider
         $this->registerPolicies();
 
         Passport::routes();
+        Passport::tokensExpireIn(now()->addDays(1));
+
+        Passport::tokensCan([
+            'medical-center' => 'Access for Medical Center App',
+            'patient' => 'Access for Patient',
+        ]);
+
     }
 }

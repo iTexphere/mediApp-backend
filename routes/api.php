@@ -15,13 +15,39 @@ use Illuminate\Support\Facades\Route;
 */
 
 /**
-* Login Registration Route -
+*  Medical Center Without Authenticated Route -
 */
-Route::group(['as'=>'v1.', 'prefix'=>'v1', 'namespace'=>'Api'], function(){
-	Route::post('signup', 'UserController@signup')->name('signup');
-	Route::post('signin', 'UserController@signin')->name('signin');
+Route::group(['as'=>'v1.medical','prefix'=>'v1/medical', 'namespace'=>'Api\Medical'], function(){
+	Route::post('signup', 'UserController@signup')->name('.signup');
+	Route::post('signin', 'UserController@signin')->name('.signin');
 });
 
-/*Route::middleware('auth:api')->get('/user', function (Request $request) {
-    return $request->user();
-});*/
+/**
+*  Medical Center Authenticated Route -
+*/
+// Route::group(['as' => 'v1.medical', 'prefix' => 'v1.medical', 'namespace' => 'Api\Medical', 'middleware'=> ['auth:api', 'scope:medical']], function(){
+
+
+
+// });
+
+
+
+
+/**
+*  Patient Without Authenticated Route -
+*/
+Route::group(['as'=>'v1.patient', 'prefix'=>'v1/patient', 'namespace'=>'Api\Patient'], function(){
+	Route::post('signup', 'UserController@signup')->name('.signup');
+	Route::post('signin', 'UserController@signin')->name('.signin');
+});
+
+/**
+*  Patient Authenticated Route -
+*/
+// Route::group(['as' => 'v1.patient', 'prefix' => 'v1.patient', 'namespace' => 'Api\Patient', 'middleware'=> ['auth:api', 'scope:patient']], function(){
+
+
+
+// });
+
