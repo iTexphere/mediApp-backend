@@ -9,31 +9,73 @@ use App\Medical;
 
 class MedicalController extends Controller
 {
-    public function search($keyword)
-    {
-    	if (!empty($keyword)) {
-    		$result  = Medical::Where('city', 'like', '%'.$keyword.'%')
-    			->orWhere('center_name', 'like', '%'.$keyword.'%')
-    	        ->orWhere('dr_name', 'like', '%'.$keyword.'%')->get();
+    public function search(Request $request)
+    {   
+        //$this->validate($request, ['city' => 'required']);
 
-    	    if ($result) {
-	    		return response()->json([
-		            'status' => 'success',
-		            'data'	 => $result
-		        ], 200);
 
-    	                    	
-    	    }else{
-	    		return response()->json([
-		            'status'=> 'no result found',
-		        ], 204);
-    	    }                
-    	}else{
+        if( !isset($request->city) && !isset($request->center_name) && !isset($request->dr_name) ){
 
-    		return response()->json([
-	            'status'=> 'failed',
-	        ], 400);
-    	}
+            return response()->json([
+                'status'    => 'faild'
+            ], 422);
+
+        }elseif ( isset($request->city) && !isset($request->center_name) && !isset($request->dr_name) ) {
+           $result = Medical::where('city', $request->city)->get();
+
+        }elseif ( isset($request->city) && isset($request->center_name) && !isset($request->dr_name) ) {
+           
+           $result = Medical::where([
+                ['city', '=' ,$request->city],
+                ['center_name','=' ,$request->center_name]
+           ])->get();
+
+        }elseif (isset($request->city) && isset($request->center_name) && isset($request->dr_name)) {
+            
+            $result = Medical::where([
+                 ['city', '=', $request->city],
+                 ['center_name', '=', $request->center_name],
+                 ['dr_name', 'like', '%'.$request->dr_name.'%' ],
+            ])->get();
+
+        }elseif ( isset($request->city) && !isset($request->center_name) && isset($request->dr_name)  ) {
+            $result = Medical::where([
+                 ['city', '=', $request->city],
+                 ['dr_name', 'like', '%'.$request->dr_name.'%' ],
+            ])->get();
+            
+        }elseif (!isset($request->city) && isset($request->center_name) && isset($request->dr_name) ) {
+            $result = Medical::where([
+                 ['center_name', '=', $request->center_name],
+                 ['dr_name', 'like', '%'.$request->dr_name.'%' ],
+            ])->get();
+
+        }elseif (!isset($request->city) && !isset($request->center_name) && isset($request->dr_name)) {
+            $result = Medical::where('dr_name', 'like', '%'.$request->dr_name.'%')->get();
+
+        }elseif (!isset($request->city) && isset($request->center_name) && !isset($request->dr_name)) {
+            $result = Medical::where('center_name', '=', '$request->center_name')->get();
+
+        }else{
+
+            return response()->json([
+                'status'=> 'faild',
+            ], 400);
+        }
+
+
+        if ($result) {
+            return response()->json([
+                'status' => 'success',
+                'data'   => $result
+            ], 200);
+
+        }else{
+
+            return response()->json([
+                'status'=> 'not found',
+            ], 204);
+        }
 
 
     }
