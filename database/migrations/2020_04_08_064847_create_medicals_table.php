@@ -29,7 +29,7 @@ class CreateMedicalsTable extends Migration
             $table->string('image')->nullable();
             $table->string('latitude')->nullable();
             $table->string('longitude')->nullable();
-            $table->string('issuing')->default('off'); //on|off
+            $table->string('issuing')->default('on'); //on|off
             $table->string('session')->default('off'); //on|off
             $table->string('current_issues_no')->default('0');
             $table->timestamps();

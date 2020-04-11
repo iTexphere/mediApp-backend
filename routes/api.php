@@ -48,6 +48,7 @@ Route::group(['as'=>'v1.patient', 'prefix'=>'v1/patient', 'namespace'=>'Api\Pati
 Route::group(['as' => 'v1.patient', 'prefix' => 'v1/patient', 'namespace' => 'Api\Patient', 'middleware'=> ['auth:api', 'scope:patient']], function(){
 
 	Route::post('/search/', 'MedicalController@search')->name('.search.medical');
+	Route::get('/booking/{medicalid}/', 'BookingController@booking')->name('.booking.medical');
 
 });
 

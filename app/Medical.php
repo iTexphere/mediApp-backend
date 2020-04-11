@@ -4,6 +4,7 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 use App\User;
+use App\Booking;
 
 class Medical extends Model
 {
@@ -13,5 +14,9 @@ class Medical extends Model
 
     public function user(){
     	return $this->belongsTo(User::class);
+    }
+
+    public function bookings(){
+    	return $this->hasMany(Booking::class);
     }
 }
