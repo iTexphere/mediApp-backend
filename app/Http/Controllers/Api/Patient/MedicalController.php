@@ -11,8 +11,6 @@ class MedicalController extends Controller
 {
     public function medicalSearch(Request $request)
     {   
-        //$this->validate($request, ['city' => 'required']);
-
 
         if( !isset($request->city) && !isset($request->center_name) && !isset($request->dr_name) ){
 
