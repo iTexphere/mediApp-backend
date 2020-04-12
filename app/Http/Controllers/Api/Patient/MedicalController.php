@@ -9,7 +9,7 @@ use App\Medical;
 
 class MedicalController extends Controller
 {
-    public function search(Request $request)
+    public function medicalSearch(Request $request)
     {   
         //$this->validate($request, ['city' => 'required']);
 
