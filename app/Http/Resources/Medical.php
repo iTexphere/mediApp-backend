@@ -15,7 +15,7 @@ class Medical extends JsonResource
     public function toArray($request)
     {
         return [
-            'user_neme' => $this->user_name,
+            'user_name' => $this->user_name,
             'role' => $this->role,
             'info' => $this->medical,
         ];
