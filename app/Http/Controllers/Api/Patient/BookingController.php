@@ -25,7 +25,14 @@ class BookingController extends Controller
 				], 400);
     		}
 
-    	 $booking = Booking::whereDate('created_at', Carbon::today())->latest()->first();
+            if (Booking::whereDate('created_at', Carbon::today())->where('medical_id', $medicalid)->where('patient_id', auth()->user()->patient->id)->get()->count() > 0) {
+                return response()->json([
+                    'status' => 'faild',
+                    'message'=> 'You already have a booking here, Please try again tomorrow',
+                ], 400);
+            }
+
+    	 $booking = Booking::whereDate('created_at', Carbon::today())->where('medical_id', $medicalid)->latest()->first();
     		(!$booking)? $booking_number = 1 : $booking_number = $booking->booking_no + 1;
 
 			DB::beginTransaction();
