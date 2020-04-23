@@ -9,6 +9,8 @@ use App\Medical;
 Use App\Booking;
 use Carbon\Carbon;
 
+use App\Http\Resources\PatientBookings;
+
 class BookingController extends Controller
 {
     public function booking($medicalid){
@@ -69,4 +71,26 @@ class BookingController extends Controller
     	}
 
     }
+
+
+    public function mybooking()
+    {
+        $bookings = Booking::whereDate('created_at', Carbon::today())->where('patient_id', auth()->user()->patient->id)->latest()->get();
+        if ($bookings->count() > 0) {
+
+            return response()->json([
+                'status' => 'success',
+                'data'=> PatientBookings::collection($bookings)
+            ], 200);
+
+
+        }else{
+            return response()->json([
+                'status' => 'faild',
+                'message'=> 'No booking data found',
+            ], 400);
+        } 
+        
+    }
 }
+

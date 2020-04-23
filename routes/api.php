@@ -25,11 +25,12 @@ Route::group(['as'=>'v1.medical','prefix'=>'v1/medical', 'namespace'=>'Api\Medic
 /**
 *  Medical Center Authenticated Route -
 */
-// Route::group(['as' => 'v1.medical', 'prefix' => 'v1.medical', 'namespace' => 'Api\Medical', 'middleware'=> ['auth:api', 'scope:medical']], function(){
+Route::group(['as' => 'v1.medical', 'prefix' => 'v1/medical', 'namespace' => 'Api\Medical', 'middleware'=> ['auth:api', 'scope:medical-center']], function(){
 
+	Route::get('/booking/patient', 'BookingController@booking')->name('.booking.patient');
+	Route::post('/our-bookings', 'BookingController@ourbooking')->name('.ourbooking');
 
-
-// });
+});
 
 
 
@@ -48,8 +49,8 @@ Route::group(['as'=>'v1.patient', 'prefix'=>'v1/patient', 'namespace'=>'Api\Pati
 Route::group(['as' => 'v1.patient', 'prefix' => 'v1/patient', 'namespace' => 'Api\Patient', 'middleware'=> ['auth:api', 'scope:patient']], function(){
 
 	Route::get('/booking/{medicalid}/', 'BookingController@booking')->name('.booking.medical');
-
 	Route::post('/src', 'MedicalController@medicalSearch')->name('.search.medical');
+	Route::get('/my-booking', 'BookingController@mybooking')->name('.mybooking');
 	
 
 });

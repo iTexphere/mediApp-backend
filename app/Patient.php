@@ -9,7 +9,7 @@ use App\Booking;
 class Patient extends Model
 {
 	protected $fillable = [
-	    'first_name', 'last_name', 'nic', 'email', 'mobile_number', 'city', 'district', 'user_id'
+	    'first_name', 'last_name', 'nic', 'email', 'mobile_number', 'city', 'district', 'user_id', 'medi_track'
 	];
 
 	public function user(){
